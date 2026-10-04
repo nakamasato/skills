@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "skill",
   "version": "0.1.0",
-  "description": "Structural review of a skill: what belongs in SKILL.md versus references/ and scripts/",
+  "description": "Review skill structure and visualize skill contents as interactive HTML",
   "author": {
     "name": "Masato Naka"
   }

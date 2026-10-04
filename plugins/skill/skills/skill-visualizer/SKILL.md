@@ -16,11 +16,20 @@ Create an interactive, standalone HTML page to help someone understand a skill's
 3. Use your language understanding to extract the skill's actual structure, use cases, meaningful workflow steps, and file relationships. Follow the source's organization rather than assuming a specific heading format or numbered list. Use concise descriptions grounded in the files. Include only relationships supported by explicit references or clear structural evidence; do not invent missing steps or dependencies.
 4. Pass the analysis as JSON to the renderer. Include these fields:
 
-   - `summary`: a short overview of the skill.
+   - `lang`: `"ja"` or `"en"`. Match the language of the skill (or of the user's request); it sets the page's UI labels, and you write every other field in the same language.
+   - `summary`: one or two sentences on what the skill does for whom.
    - `applies_when`: an array of situations in which the skill applies.
+   - `notes` (optional): skill-wide `{ "kind": "note|warn|stop", "label", "text" }` callouts, such as role boundaries or hard stop conditions.
    - `sections`: an array of `{ "title", "summary" }` objects reflecting the actual `SKILL.md` structure.
-   - `details`: an array of `{ "tab_label", "title", "summary" }` objects for meaningful steps or process parts. Keep each `tab_label` short (for example, `Step 1`). If the skill has no stepwise workflow, provide one useful guide detail based on its main content.
-   - `relationships`: an array of `{ "from", "to", "kind", "reason" }` objects. Use paths relative to the skill directory, and only include files that exist there. `kind` is a short relationship label; `reason` briefly states the evidence.
+   - `details`: one object per meaningful step or process part, in execution order. A branch or exception worth its own tab is also a detail. If the skill has no stepwise workflow, provide one guide detail based on its main content. Fields:
+     - `tab_label`: short tab text (for example, `1. Target`).
+     - `title`: what happens in this step, as a short phrase.
+     - `brief`: one line (under ~40 characters) shown on the overview flow card.
+     - `summary`: two or three sentences stating what the agent does and why.
+     - `cards` (optional): `{ "title", "body" | "items": [...] }` for parallel facts such as inputs, cases, or checklist items. Prefer 2 to 4 short cards over a long paragraph.
+     - `notes` (optional): `{ "kind", "label", "text" }` callouts for exceptions, stop conditions, and who decides.
+     - `files` (optional): skill-relative paths of the files this step relies on. They render as links to the source.
+   - `relationships`: an array of `{ "from", "to", "kind", "reason", "evidence" }` objects. Use paths relative to the skill directory, and only include files that exist there. `kind` is a short label; `reason` states the evidence; `evidence` is `"explicit"` for a link or named path in the text, or `"inferred"` for structural evidence only.
 
    Generate the page with this skill's helper, supplying that JSON on standard input:
 
@@ -35,8 +44,9 @@ Create an interactive, standalone HTML page to help someone understand a skill's
 
 ## Page contents
 
-- **Overview:** skill name and summary, when it applies, LLM-extracted section outline, directory tree, and a relationship diagram for relevant files.
-- **Details:** tabs based on meaningful workflow steps or process parts identified from the content, regardless of how they are formatted in Markdown.
-- **Code:** readable source for `SKILL.md` and relevant text files, plus a diff against `origin/main` when the skill is inside a Git repository and that ref is available.
+- **Overview:** when the skill applies, a clickable flow of the steps (from `details`), skill-wide notes, and a collapsed `SKILL.md` outline.
+- **One tab per detail:** summary, cards, callouts, and links to the files the step relies on.
+- **Structure:** clickable file tree, and relationships grouped by source file and marked explicit or inferred.
+- **Source:** readable source for `SKILL.md` and relevant text files, plus a colored diff against `origin/main` when the skill is inside a Git repository and that ref is available.
 
-Keep explanations factual and concise. Do not invent behavior or dependencies. The relationship map should distinguish explicit links from inferred structural relationships. Keep source text escaped and local; generated pages must not load remote assets or execute code from analyzed files.
+Make the page readable at a glance: answer the reader's question first, keep every field short, and move parallel facts into cards instead of prose. Keep explanations factual; do not invent behavior or dependencies. Keep source text escaped and local; generated pages must not load remote assets or execute code from analyzed files.

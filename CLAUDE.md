@@ -1,16 +1,16 @@
-# cc-skills
+# Agent Skills
 
-Claude Code の plugin marketplace (`nakamasato`)。構成とインストール手順は `README.md` を参照。
+A plugin marketplace for Claude Code and Codex (`nakamasato`). See `README.md` for its structure and installation instructions.
 
-## Skill と plugin の追加
+## Adding Skills and Plugins
 
-- skill は `plugins/<plugin>/skills/<skill>/SKILL.md` に置く
-- plugin を新しく作ったら `.claude-plugin/marketplace.json` の `plugins` にも登録する
-- skill から別の skill のファイルを参照するときは、`~/.claude/skills/...` ではなく参照元ファイルからの相対パスで書く。plugin としてインストールすると `~/.claude/skills/` には置かれない
+- Place skills in `plugins/<plugin>/skills/<skill>/SKILL.md`.
+- When adding a plugin, register it in the `plugins` array in `.claude-plugin/marketplace.json`.
+- Reference files from another skill using paths relative to the referencing file, not `~/.claude/skills/...`. Plugin-installed skills are not placed under `~/.claude/skills/`.
 
-## 検証
+## Validation
 
-変更後に両方を通す:
+Run both commands after making changes:
 
 ```
 claude plugin validate .

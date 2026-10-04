@@ -1,13 +1,15 @@
 # Agent Skills
 
-Claude Code と Codex の plugin marketplace。
+A plugin marketplace for Claude Code and Codex.
 
-## Plugins
+## Skills
 
-| Plugin | Skills | 用途 |
+| Skill | Plugin | Purpose |
 |---|---|---|
-| `doc` | `md-doc-update` / `md-doc-refactor` | Markdown doc の内容更新と、意味を変えない構造リファクタ |
-| `skill` | `skill-reviewer` | skill の構造レビュー (SKILL.md と references/・scripts/ の振り分け) |
+| `md-doc-update` | `doc` | Update Markdown documentation |
+| `md-doc-refactor` | `doc` | Refactor Markdown structure without changing meaning |
+| `skill-reviewer` | `skill` | Review skill structure |
+| `skill-visualizer` | `skill` | Generate an HTML guide to explore a skill |
 
 ## Installation
 
@@ -19,7 +21,7 @@ Claude Code と Codex の plugin marketplace。
 /plugin install skill@nakamasato
 ```
 
-ローカルの clone から試す場合は `/plugin marketplace add ./` を使う。
+To try the plugins from a local clone, use `/plugin marketplace add ./`.
 
 ### Codex
 
@@ -29,4 +31,4 @@ codex plugin add doc@nakamasato
 codex plugin add skill@nakamasato
 ```
 
-マーケットプレイスを追加した後、使いたいプラグインをインストールする。
+Add the marketplace, then install the plugins you want to use.

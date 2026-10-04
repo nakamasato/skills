@@ -72,7 +72,7 @@ A reader scans the heading tree and jumps, so judge each heading by whether it p
 | Weak heading | Why | Better |
 |---|---|---|
 | `Two sources` | Counts instead of answering the reader's question | `Choosing a source` |
-| `Constraints`, `Notes`, `Tips` | Fits anything, so it says nothing | `Runtime constraints` |
+| `Constraints`, `Notes`, `Tips` | Can be too broad when the section's subject is hard to predict | Use a more specific heading when it helps readers find the section; keep a broad heading when it fits the section and balances the document |
 | `About the API` | Hides the conclusion the section reaches | `What the Instructor API covers` |
 | `Fetching it`, `Reading it` | Conversational | Documentation headings are noun phrases: `Fetch procedure`, `Snapshot structure` |
 
